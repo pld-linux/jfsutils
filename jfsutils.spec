@@ -8,6 +8,7 @@ Release:	1
 License:	GPL
 Group:		Applications/System
 Source0:	http://www10.software.ibm.com/developer/opensource/jfs/project/pub/%{name}-%{version}.tar.gz
+# Source0-md5:	324b8b8f8c09817fb79dc093092998f2
 #Patch0:		%{name}-errno.patch
 URL:		http://oss.software.ibm.com/jfs/
 BuildRequires:	autoconf
