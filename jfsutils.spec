@@ -29,9 +29,9 @@ Programy do zarz±dzania systemem plików JFS.
 
 %build
 rm -f missing
-aclocal
+%{__aclocal}
 %{__autoconf}
-autoheader
+%{__autoheader}
 %{__automake}
 
 %configure
