@@ -5,8 +5,6 @@ Version:	1.0.11
 Release:	1
 License:	GPL
 Group:		Applications/System
-Group(de):	Applikationen/System
-Group(pl):	Aplikacje/System
 Source0:	http://www10.software.ibm.com/developer/opensource/jfs/project/pub/%{name}-%{version}.tar.gz
 URL:		http://oss.software.ibm.com/jfs/
 BuildRequires:	autoconf
@@ -27,13 +25,6 @@ Programy do zarz╠dzania systemem plikСw JFS.
 Summary:	jfsutils for bootdisk (compiled against uClibc headers)
 Summary(pl):	jfsutils dla bootkietki (skompilowane z uClibc)
 Group:		Development/Libraries
-Group(de):	Entwicklung/Libraries
-Group(es):	Desarrollo/Bibliotecas
-Group(fr):	Development/Librairies
-Group(pl):	Programowanie/Biblioteki
-Group(pt_BR):	Desenvolvimento/Bibliotecas
-Group(ru):	Разработка/Библиотеки
-Group(uk):	Розробка/Б╕бл╕отеки
 
 %description BOOT
 jfsutils for bootdisk (compiled against uClibc headers).
