@@ -53,7 +53,7 @@ autoheader
 automake -a -c
 %if %{?BOOT:1}%{!?BOOT:0}
 # BOOT version
-CFLAGS="%{rpmcflags} -Os -c -I%{_libdir}/bootdisk/usr/include"
+CFLAGS="%{rpmcflags} -Os -I%{_libdir}/bootdisk/usr/include"
 %configure
 
 %{__make} -C libfs
