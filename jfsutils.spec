@@ -1,7 +1,7 @@
 Summary:	IBM JFS utility programs
 Summary:	Programy u¿ytkowe dla IBM JFS
 Name:		jfsutils
-Version:	1.0.5
+Version:	1.0.6
 Release:	1
 Group:		Applications/System
 Group(de):	Applikationen/System
