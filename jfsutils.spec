@@ -12,6 +12,7 @@ Patch0:		%{name}-errno.patch
 URL:		http://oss.software.ibm.com/jfs/
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	e2fsprogs-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	jfsprogs
 
