@@ -1,8 +1,8 @@
 Summary:	IBM JFS utility programs
 Summary(pl):	Programy u¿ytkowe dla IBM JFS
 Name:		jfsutils
-Version:	1.0.9
-Release:	2
+Version:	1.0.10
+Release:	1
 License:	GPL
 Group:		Applications/System
 Group(de):	Applikationen/System
@@ -50,14 +50,22 @@ jfsutils dla bootkietki (skompilowane z uClibc).
 # BOOT version
 BOOTCFLAGS="%{rpmcflags} -Os -c -I%{_libdir}/bootdisk/usr/include"
 BOOTCFLAGS="$BOOTCFLAGS -D_PATH_MNTTAB=\\\"/etc/mtab\\\""
-%{__make} -C libfs CFLAGS="$BOOTCFLAGS"
+%{__make} -C libfs \
+	CFLAGS="$BOOTCFLAGS" \
+	CC=%{__cc}
+
 %{__make} -C mkfs CFLAGS="$BOOTCFLAGS" \
-	LIBS="-nostdlib %{_libdir}/bootdisk/usr/lib/crt0.o %{_libdir}/bootdisk/usr/lib/libc.a -lgcc"
+	LIBS="-nostdlib %{_libdir}/bootdisk/usr/lib/crt0.o %{_libdir}/bootdisk/usr/lib/libc.a -lgcc" \
+	CC=%{__cc}
+
 mv -f mkfs/mkfs.jfs mkfs.jfs-BOOT
 %{__make} clean
 %endif
 
-%{__make} CFLAGS="%{rpmcflags} -Wall -c"
+%{__make} \
+	CFLAGS="%{rpmcflags} -Wall -c" \
+	CC=%{__cc}
+
 
 %install
 rm -rf $RPM_BUILD_ROOT
