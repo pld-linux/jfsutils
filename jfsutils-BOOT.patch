@@ -1,0 +1,10 @@
+diff -ur jfsutils-/mkfs/makefile jfsutils/mkfs/makefile
+--- jfsutils-/mkfs/makefile	Mon Aug 13 23:36:15 2001
++++ jfsutils/mkfs/makefile	Sat Oct 27 15:02:15 2001
+@@ -54,5 +54,5 @@
+ 
+ # Rule for creating the mkfs.jfs executable
+ mkfs.jfs : $(OBJS) ../libfs/libfs.a
+-	$(CC) -o mkfs.jfs $(OBJS) ../libfs/libfs.a
++	$(CC) -o mkfs.jfs $(OBJS) ../libfs/libfs.a $(LIBS)
+ 
