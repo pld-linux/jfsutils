@@ -1,15 +1,16 @@
 Summary:	IBM JFS utility programs
 Summary(pl):	Programy u¿ytkowe dla IBM JFS
 Name:		jfsutils
-Version:	1.0.10
+Version:	1.0.11
 Release:	1
 License:	GPL
 Group:		Applications/System
 Group(de):	Applikationen/System
 Group(pl):	Aplikacje/System
 Source0:	http://www10.software.ibm.com/developer/opensource/jfs/project/pub/%{name}-%{version}.tar.gz
-Patch0:		jfsutils-BOOT.patch
 URL:		http://oss.software.ibm.com/jfs/
+BuildRequires:	autoconf
+BuildRequires:	automake
 %{?BOOT:BuildRequires:	uClibc-devel-BOOT}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -42,18 +43,20 @@ jfsutils dla bootkietki (skompilowane z uClibc).
 %endif
 
 %prep
-%setup -q -n %{name}
-%patch0 -p1
+%setup -q
 
 %build
+rm -f missing
+aclocal
+autoconf
+autoheader
+automake -a -c
 %if %{?BOOT:1}%{!?BOOT:0}
 # BOOT version
-BOOTCFLAGS="%{rpmcflags} -Os -c -I%{_libdir}/bootdisk/usr/include"
-BOOTCFLAGS="$BOOTCFLAGS -D_PATH_MNTTAB=\\\"/etc/mtab\\\""
-%{__make} -C libfs \
-	CFLAGS="$BOOTCFLAGS" \
-	CC=%{__cc}
+CFLAGS="%{rpmcflags} -Os -c -I%{_libdir}/bootdisk/usr/include"
+%configure
 
+%{__make} -C libfs
 %{__make} -C mkfs CFLAGS="$BOOTCFLAGS" \
 	LIBS="-nostdlib %{_libdir}/bootdisk/usr/lib/crt0.o %{_libdir}/bootdisk/usr/lib/libc.a -lgcc" \
 	CC=%{__cc}
@@ -62,17 +65,14 @@ mv -f mkfs/mkfs.jfs mkfs.jfs-BOOT
 %{__make} clean
 %endif
 
-%{__make} \
-	CFLAGS="%{rpmcflags} -Wall -c" \
-	CC=%{__cc}
-
+%configure
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sbindir},%{_mandir}/man8}
 
-install output/* $RPM_BUILD_ROOT%{_sbindir}
-install */*.8 $RPM_BUILD_ROOT%{_mandir}/man8
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 %if %{?BOOT:1}%{!?BOOT:0}
 # BOOT version
