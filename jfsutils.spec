@@ -3,8 +3,8 @@
 Summary:	IBM JFS utility programs
 Summary(pl):	Programy u¿ytkowe dla IBM JFS
 Name:		jfsutils
-Version:	1.0.17
-Release:	2
+Version:	1.0.20
+Release:	1
 License:	GPL
 Group:		Applications/System
 Source0:	http://www10.software.ibm.com/developer/opensource/jfs/project/pub/%{name}-%{version}.tar.gz
