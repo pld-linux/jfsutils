@@ -5,12 +5,12 @@
 Summary:	IBM JFS utility programs
 Summary(pl):	Programy u¿ytkowe dla IBM JFS
 Name:		jfsutils
-Version:	1.1.3
+Version:	1.1.4
 Release:	1
 License:	GPL
 Group:		Applications/System
 Source0:	http://www10.software.ibm.com/developer/opensource/jfs/project/pub/%{name}-%{version}.tar.gz
-# Source0-md5:	6d9ea69c4e05557155e79792263a2d4e
+# Source0-md5:	69081f7fd3521e5bb0e026e90529f28f
 URL:		http://oss.software.ibm.com/jfs/
 BuildRequires:	autoconf
 BuildRequires:	automake
