@@ -1,10 +1,12 @@
-# conditional build
-#  --without fsck -- don't build fsck.jfs (as it requires pthread)
+#
+# Conditional build:
+# --without fsck	-- don't build fsck.jfs (as it requires pthread)
+#
 Summary:	IBM JFS utility programs
 Summary(pl):	Programy u¿ytkowe dla IBM JFS
 Name:		jfsutils
 Version:	1.1.2
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/System
 Source0:	http://www10.software.ibm.com/developer/opensource/jfs/project/pub/%{name}-%{version}.tar.gz
