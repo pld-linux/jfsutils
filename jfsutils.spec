@@ -1,4 +1,3 @@
-
 Summary:	IBM JFS utility programs
 Summary:	Programy u¿ytkowe dla IBM JFS
 Name:		jfsutils
@@ -15,28 +14,28 @@ Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_sbindir	/sbin
 
 %description
-Utilities to manage JFS filesystems
+Utilities to manage JFS filesystems.
 
 %description -l pl
-Pragramy do zarz±dzania systemem plików JFS
+Pragramy do zarz±dzania systemem plików JFS.
 
 %prep
 %setup -q -n %{name}
 
 %build
-%{__make}
+%{__make} CFLAGS="%{rpmcflags} -Wall -c"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/%{_sbindir}
-install -d $RPM_BUILD_ROOT/%{_mandir}/man8
-cp -a output/* $RPM_BUILD_ROOT/%{_sbindir}
-cp -a */*.8 $RPM_BUILD_ROOT/%{_mandir}/man8
+install -d $RPM_BUILD_ROOT{%{_sbindir},%{_mandir}/man8}
+
+install output/* $RPM_BUILD_ROOT/%{_sbindir}
+install */*.8 $RPM_BUILD_ROOT/%{_mandir}/man8
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) /sbin/*
+%attr(755,root,root) %{_sbindir}/*
 %{_mandir}/man8/*
