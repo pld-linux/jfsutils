@@ -1,17 +1,17 @@
 Summary:	IBM JFS utility programs
-Summary:	Programy uøytkowe dla IBM JFS
+Summary(pl):	Programy uøytkowe dla IBM JFS
 Name:		jfsutils
 Version:	1.0.9
-Release:	1
+Release:	2
+License:	GPL
 Group:		Applications/System
 Group(de):	Applikationen/System
 Group(pl):	Aplikacje/System
 Source0:	http://www10.software.ibm.com/developer/opensource/jfs/project/pub/%{name}-%{version}.tar.gz
 Patch0:		jfsutils-BOOT.patch
-URL:		http://oss.software.ibm.com/jfs
-License:	GPL
+URL:		http://oss.software.ibm.com/jfs/
 %{?BOOT:BuildRequires:	uClibc-devel-BOOT}
-Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_sbindir	/sbin
 
@@ -19,14 +19,26 @@ Buildroot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Utilities to manage JFS filesystems.
 
 %description -l pl
-Pragramy do zarz±dzania systemem plikÛw JFS.
+Programy do zarz±dzania systemem plikÛw JFS.
 
 %if %{?BOOT:1}%{!?BOOT:0}
 %package BOOT
 Summary:	jfsutils for bootdisk (compiled against uClibc headers)
+Summary(pl):	jfsutils dla bootkietki (skompilowane z uClibc)
 Group:		Development/Libraries
+Group(de):	Entwicklung/Libraries
+Group(es):	Desarrollo/Bibliotecas
+Group(fr):	Development/Librairies
+Group(pl):	Programowanie/Biblioteki
+Group(pt_BR):	Desenvolvimento/Bibliotecas
+Group(ru):	Ú¡⁄“¡¬œ‘À¡/‚…¬Ã…œ‘≈À…
+Group(uk):	Úœ⁄“œ¬À¡/‚¶¬Ã¶œ‘≈À…
+
 %description BOOT
 jfsutils for bootdisk (compiled against uClibc headers).
+
+%description BOOT -l pl
+jfsutils dla bootkietki (skompilowane z uClibc).
 %endif
 
 %prep
@@ -41,7 +53,7 @@ BOOTCFLAGS="$BOOTCFLAGS -D_PATH_MNTTAB=\\\"/etc/mtab\\\""
 %{__make} -C libfs CFLAGS="$BOOTCFLAGS"
 %{__make} -C mkfs CFLAGS="$BOOTCFLAGS" \
 	LIBS="-nostdlib %{_libdir}/bootdisk/usr/lib/crt0.o %{_libdir}/bootdisk/usr/lib/libc.a -lgcc"
-mv mkfs/mkfs.jfs mkfs.jfs-BOOT
+mv -f mkfs/mkfs.jfs mkfs.jfs-BOOT
 %{__make} clean
 %endif
 
@@ -51,8 +63,8 @@ mv mkfs/mkfs.jfs mkfs.jfs-BOOT
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_sbindir},%{_mandir}/man8}
 
-install output/* $RPM_BUILD_ROOT/%{_sbindir}
-install */*.8 $RPM_BUILD_ROOT/%{_mandir}/man8
+install output/* $RPM_BUILD_ROOT%{_sbindir}
+install */*.8 $RPM_BUILD_ROOT%{_mandir}/man8
 
 %if %{?BOOT:1}%{!?BOOT:0}
 # BOOT version
