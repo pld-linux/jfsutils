@@ -54,6 +54,12 @@ install -d $RPM_BUILD_ROOT{%{_sbindir},%{_mandir}/man8}
 install output/* $RPM_BUILD_ROOT/%{_sbindir}
 install */*.8 $RPM_BUILD_ROOT/%{_mandir}/man8
 
+%if %{?BOOT:1}%{!?BOOT:0}
+# BOOT version
+install -d $RPM_BUILD_ROOT/usr/lib/bootdisk/sbin
+install mkfs.jfs-BOOT $RPM_BUILD_ROOT/usr/lib/bootdisk/sbin/mkfs.jfs
+%endif
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
