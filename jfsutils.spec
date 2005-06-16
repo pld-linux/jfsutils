@@ -1,18 +1,17 @@
 #
 # Conditional build:
-# --without fsck	-- don't build fsck.jfs (as it requires pthread)
+%bcond_without	fsck	# don't build fsck.jfs (as it requires pthread)
 #
 Summary:	IBM JFS utility programs
 Summary(pl):	Programy u¿ytkowe dla IBM JFS
 Name:		jfsutils
-Version:	1.1.2
-Release:	2
+Version:	1.1.8
+Release:	1
 License:	GPL
 Group:		Applications/System
-Source0:	http://www10.software.ibm.com/developer/opensource/jfs/project/pub/%{name}-%{version}.tar.gz
-# Source0-md5:	324b8b8f8c09817fb79dc093092998f2
-#Patch0:		%{name}-errno.patch
-URL:		http://oss.software.ibm.com/jfs/
+Source0:	http://jfs.sourceforge.net/project/pub/%{name}-%{version}.tar.gz
+# Source0-md5:	eead36ed2ef2bc2a31ebb82fdd0506c4
+URL:		http://jfs.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	e2fsprogs-devel
@@ -29,12 +28,10 @@ Programy do zarz±dzania systemem plików JFS.
 
 %prep
 %setup -q
-#%patch0 -p1
-%{?_without_fsck:cp Makefile.am Makefile.am.tmp}
-%{?_without_fsck:sed -e 's/ fsck / /' Makefile.am.tmp > Makefile.am}
+%{!?with_fsck:cp Makefile.am Makefile.am.tmp}
+%{!?with_fsck:sed -e 's/ fsck / /' Makefile.am.tmp > Makefile.am}
 
 %build
-rm -f missing
 %{__aclocal}
 %{__autoconf}
 %{__autoheader}
