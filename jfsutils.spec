@@ -11,6 +11,7 @@ License:	GPL
 Group:		Applications/System
 Source0:	http://jfs.sourceforge.net/project/pub/%{name}-%{version}.tar.gz
 # Source0-md5:	eead36ed2ef2bc2a31ebb82fdd0506c4
+Patch0:		%{name}-O_DIRECT.patch
 URL:		http://jfs.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -28,6 +29,9 @@ Programy do zarz±dzania systemem plików JFS.
 
 %prep
 %setup -q
+%ifarch ppc sparc
+%patch0 -p1
+%endif
 %{!?with_fsck:cp Makefile.am Makefile.am.tmp}
 %{!?with_fsck:sed -e 's/ fsck / /' Makefile.am.tmp > Makefile.am}
 
