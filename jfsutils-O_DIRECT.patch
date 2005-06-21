@@ -1,0 +1,96 @@
+diff -ur jfsutils-1.1.8.orig/mkfs/initmap.c jfsutils-1.1.8/mkfs/initmap.c
+--- jfsutils-1.1.8.orig/mkfs/initmap.c	Tue May  3 21:21:42 2005
++++ jfsutils-1.1.8/mkfs/initmap.c	Tue Jun 21 20:01:14 2005
+@@ -1,5 +1,5 @@
+ /*
+- *   Copyright (C) International Business Machines Corp., 2000-2005
++ *   Copyright (c) International Business Machines Corp., 2000-2002
+  *
+  *   This program is free software;  you can redistribute it and/or modify
+  *   it under the terms of the GNU General Public License as published by
+@@ -15,14 +15,11 @@
+  *   along with this program;  if not, write to the Free Software 
+  *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+  */
+-#define _GNU_SOURCE	/* FOR O_DIRECT */
+ #include "jfs_types.h"
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+ #include <time.h>
+-#include <unistd.h>
+-#include <fcntl.h>
+ #include <errno.h>
+ #include "jfs_endian.h"
+ #include "jfs_filsys.h"
+@@ -1084,14 +1081,13 @@
+ {
+ 	int rc = 0;
+ 	int error;
+-	void *buffer = NULL;
++	char *buffer = NULL;
+ 	int bufsize = PSIZE << 5, nbufblks;
+ 	int64_t nblocks, nb;
+ 	int64_t blkno, thisblk;
+ 	int percent, section, index;
+ 	bool write_inode = false;
+ 	struct xtree_buf *curpage;
+-	long flags;
+ 
+ 	if (badblock_pages == NULL) {
+ 		/*
+@@ -1107,24 +1103,17 @@
+ 	}
+ 
+ 	/* Allocate and clear a buffer */
+-	while ((bufsize >= aggr_block_size) &&
+-	       posix_memalign(&buffer, aggr_block_size, bufsize))
++	while ((bufsize >= aggr_block_size)
++	       && ((buffer = calloc(bufsize, sizeof (char))) == NULL))
+ 		bufsize >>= 1;
+ 
+ 	if (buffer == NULL) {
+ 		message_user(MSG_OSO_INSUFF_MEMORY, NULL, 0, OSO_MSG);
+ 		return (ENOMEM);
+ 	}
+-	memset(buffer, 0, bufsize);
+ 	nbufblks = bufsize / aggr_block_size;
+ 
+ 	/*
+-	 * Must do direct-io to avoid the page cache
+-	 */
+-	flags = fcntl(dev_ptr, F_GETFL);
+-	fcntl(dev_ptr, F_SETFL, flags | O_DIRECT);
+-
+-	/*
+ 	 * Starting from the last allocated block to the end of the aggregate 
+ 	 * write the empty buffer to disk.
+ 	 */
+@@ -1186,9 +1175,6 @@
+ 				}
+ 
+ 				if (error != 0) {
+-					/* add_bad_block may do unaligned I/O */
+-					fcntl(dev_ptr, F_SETFL, flags);
+-
+ 					/* Add this block to bad list */
+ 					if ((rc =
+ 					     add_bad_block(dev_ptr, thisblk,
+@@ -1196,8 +1182,6 @@
+ 							   bb_inode)))
+ 						continue;
+ 					write_inode = true;
+-					fcntl(dev_ptr, F_SETFL,
+-					      flags | O_DIRECT);
+ 
+ 					/*
+ 					 * In case we allocated blocks for our 
+@@ -1227,8 +1211,6 @@
+ 			nblocks -= nb;
+ 		}
+ 	}
+-	fcntl(dev_ptr, F_SETFL, flags);
+-
+ 	msg_parms[0] = "100";
+ 	message_user(MSG_OSO_PERCENT_FORMAT, msg_parms, 1, OSO_MSG);
+ 	fprintf(stdout, "\n");
