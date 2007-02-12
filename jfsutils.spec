@@ -3,7 +3,7 @@
 %bcond_without	fsck	# don't build fsck.jfs (as it requires pthread)
 #
 Summary:	IBM JFS utility programs
-Summary(pl):	Programy u¿ytkowe dla IBM JFS
+Summary(pl.UTF-8):   Programy uÅ¼ytkowe dla IBM JFS
 Name:		jfsutils
 Version:	1.1.11
 Release:	1
@@ -23,8 +23,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 Utilities to manage JFS filesystems.
 
-%description -l pl
-Programy do zarz±dzania systemem plików JFS.
+%description -l pl.UTF-8
+Programy do zarzÄ…dzania systemem plikÃ³w JFS.
 
 %prep
 %setup -q
