@@ -3,7 +3,7 @@
 %bcond_without	fsck	# don't build fsck.jfs (as it requires pthread)
 #
 Summary:	IBM JFS utility programs
-Summary(pl.UTF-8):   Programy użytkowe dla IBM JFS
+Summary(pl.UTF-8):	Programy użytkowe dla IBM JFS
 Name:		jfsutils
 Version:	1.1.11
 Release:	1
