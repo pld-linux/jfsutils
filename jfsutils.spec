@@ -52,5 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README
-%attr(755,root,root) %{_sbindir}/*
-%{_mandir}/man8/*
+%attr(755,root,root) %{_sbindir}/fsck.jfs
+%attr(755,root,root) %{_sbindir}/jfs_*
+%attr(755,root,root) %{_sbindir}/mkfs.jfs
+%{_mandir}/man8/fsck.jfs.8*
+%{_mandir}/man8/jfs_*.8*
+%{_mandir}/man8/mkfs.jfs.8*
