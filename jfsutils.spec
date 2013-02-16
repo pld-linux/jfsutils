@@ -12,6 +12,8 @@ Group:		Applications/System
 Source0:	http://jfs.sourceforge.net/project/pub/%{name}-%{version}.tar.gz
 # Source0-md5:	8809465cd48a202895bc2a12e1923b5d
 Patch0:		%{name}-am.patch
+Patch1:		%{name}-format-security.patch
+Patch2:		%{name}-includes.patch
 URL:		http://jfs.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -30,6 +32,8 @@ Programy do zarządzania systemem plików JFS.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
 %{!?with_fsck:cp Makefile.am Makefile.am.tmp}
 %{!?with_fsck:sed -e 's/ fsck / /' Makefile.am.tmp > Makefile.am}
 
