@@ -1,0 +1,11 @@
+--- jfsutils-1.1.15/configure.in.newam	2013-02-16 12:10:49.574376616 +0100
++++ jfsutils-1.1.15/configure.in	2013-02-16 12:10:57.341001208 +0100
+@@ -3,7 +3,7 @@ AC_INIT(libfs/super.c)
+ 
+ dnl Package name and version
+ AM_INIT_AUTOMAKE(jfsutils, 1.1.15)
+-AM_CONFIG_HEADER(config.h)
++AC_CONFIG_HEADERS(config.h)
+ 
+ dnl Don't include maintainer make-rules by default
+ AM_MAINTAINER_MODE
